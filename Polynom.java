@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.function.Predicate;
+
 import myMath.Monom;
 /**
  * This class represents a Polynom with add, multiply functionality, it also should support the following:
@@ -18,8 +19,8 @@ import myMath.Monom;
  */
 public class Polynom implements Polynom_able{
 	private ArrayList<Monom> monoms;
-	/** 
-	 * this constructor is the default constructor it build a new polynom and add the zero polynom to it
+	/**
+	 * Zero (empty polynom)
 	 */
 	public Polynom() {
 		Monom zero=new Monom("0");
@@ -53,9 +54,7 @@ public class Polynom implements Polynom_able{
 		monoms.add(monom);
 		cinos();
 	}
-/**
- * This function connects monoms inside the arraylisy with equal power
- */
+
 	private void cinos() {
 		Collections.sort( monoms, new  Monom_Comperator());
 		for (int i = 0; i < monoms.size()-1; i++) {
@@ -66,34 +65,19 @@ public class Polynom implements Polynom_able{
 		}
 		deleteAllZero();
 	}
-	
-	/**
-	 * 
-	 * this function is getting an argument x calculate the polynom with that x.
-	 * @param x represent the x axis position
-	 */
 	@Override
 	public double f(double x) {
 		double sum=0;
 		for (int i = 0; i < monoms.size(); i++) sum+=this.monoms.get(i).f(x);
 		return sum;
 	}
-	
-/**  this function is adding the argument polynom to the current polynom.
- * The function uses the cinus function
- */
+
 	@Override
 	public void add(Polynom_able p1) {
 		Polynom tempP1=new Polynom(p1);
 		for (int i = 0; i < tempP1.monoms.size(); i++)  this.monoms.add(tempP1.monoms.get(i));
 		cinos();
 	}
-
-	/**
-	 * this function adding a monom to the polynom. 
-	 * if the polynom alredy has a monom with the same power as in the argument monom it adding it together.
-	 *  @param m1 represnt the monom that we want to add to our polynom.
-	 */
 	@Override
 	public void add(Monom m1) {
 		Monom temp=new Monom(m1.get_coefficient(),m1.get_power());
@@ -104,12 +88,6 @@ public class Polynom implements Polynom_able{
 	private void deleteAllZero() {
 		for (int i = monoms.size()-1; i >-1; i--) deleteZero(this, i);
 	}
-	
-	/**
-	 * 
-	 * this function is substruct the argument polynom from the current polynom.
-	 * @param p1 represent the polynom that we want to substract to the current polynom
-	 */
 	@Override
 	public void substract(Polynom_able p1) {
 		Monom minos1 = new Monom(-1,0);
@@ -127,12 +105,6 @@ public class Polynom implements Polynom_able{
 		Monom zero = new Monom(0,0);
 		add(zero);
 	}
-	
-	/**
-	 * 
-	 * this function is multiply two polynoms by multiplyevery two monoms and setting it in a new polynom.
-	 * @param p1  represent the polynom that we want to multiply with the current polynom
-	 */
 	@Override
 	public void multiply(Polynom_able p1) {
 		Polynom ansSum=new Polynom("0");
@@ -147,12 +119,6 @@ public class Polynom implements Polynom_able{
 		for (int i = 0; i < ansSum.monoms.size(); i++) 	this.monoms.add(ansSum.monoms.get(i));
 		deleteAllZero();
 	}
-	
-	/**
-	 *  this function is a boolean function that compare two polynoms.
-	 * @param p1 represent the polynom that we want to compare with the current polynom.
-	 * @return true if both polynoms are equal otherwise false.
-	 */
 	@Override
 	public boolean equals(Polynom_able p1) {
 		Polynom p1Regilur=new Polynom(p1);
@@ -172,15 +138,6 @@ public class Polynom implements Polynom_able{
 		if(this.monoms.get(0).get_coefficient()==0)return true;
 		return false;
 	}
-	/**
-	 *  this function find the root of the polynon between two points(one above the  x axis and one below it) by 
-	 * using the bisection method. 
-	 * the function returns 'x' so that f(x) less than eps (close enough to  zero) 
-	 * @param x0 represent the first position on the x axis.
-	 * @param x1 represent the second position on the x axis
-	 * @param eps represent the epsilon.
-	 * @return the value of x between x0-x1 that is the root of the polynom
-	 */
 	@Override
 	public double root(double x0, double x1, double eps) {
 		if((this.f(x0)>0 &&this.f(x1)>0)||(this.f(x0)<0 &&this.f(x1)<0))throw new RuntimeException("ERR the  f(x0,x1) need to be one postive and one negetiv: "+x0+","+x1);
@@ -193,36 +150,17 @@ public class Polynom implements Polynom_able{
 		}
 		return (x0+x1)/2;
 	}
-	
-	/**
-	 * this function getting a polynom and make a deep copy of it and returns the copy polynom
-	 * @return a new polynom after a deep copy.
-	 */
 	@Override
 	public Polynom_able copy() {
 		Polynom ans=new Polynom(this);
 		return ans;
 	}
-	
-	/** 
-	 * this function is getting a polynom and derivative it.
-	 * @return the polynom after derivative.
-	 */
 	@Override
 	public Polynom_able derivative() {
 		Polynom ans=new Polynom("0");
 		for (int i = 0; i < monoms.size(); i++) 	ans.add(monoms.get(i).derivative());
 		return ans;
 	}	
-	
-	/**
-	 * this function is calculate the area of polynom between two points by using Riman's integral.
-	 * the function splits the area to ((x1-x0)/eps) rectangles and summing the are of them.
-	 * @param x0 represent the first position on the x axis.
-	 * @param x1 represent the second position on the x axis
-	 * @param eps represent the epsilon.
-	 * @return the approximated area above the x-axis below this Polynom and between the [x0,x1] range.
-	 */
 	@Override
 	public double area(double x0, double x1, double eps) {
 		if(x0==x1||x1<x0)return 0;
@@ -234,29 +172,16 @@ public class Polynom implements Polynom_able{
 		}
 		return sum;
 	}
-	
-	/**
-	 * this function defines an iterator for a polynom.
-	 * @return  an Iterator (of Monoms) over this Polynom.
-	 */
 	@Override
 	public Iterator<Monom> iteretor() {
 		return monoms.iterator();
 	}
-	
-	/**
-	 * this function is multiply polynom and monom m1 by multiply every monom in the polinom with monom m1
-	 */
 	@Override
 	public void multiply(Monom m1) {
 		if(m1.get_coefficient()==0)polynomZero();
 		for (int i = 0; i < monoms.size(); i++) 	this.monoms.get(i).multipy(m1);
 	}
 
-	/**
-	 * this function is printing the current polynom.
-	 * @return a string that represents the polynom.
-	 */
 	public String toString() {
 		String ans="";
 		for (int i = 0; i <monoms.size(); i++) {
@@ -264,5 +189,10 @@ public class Polynom implements Polynom_able{
 			ans+=monoms.get(i).toString();
 		}
 		return ans;
+	}
+	@Override
+	public function initFromString(String s) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

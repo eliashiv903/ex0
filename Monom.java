@@ -7,10 +7,7 @@ import java.util.Comparator;
  * This class represents a simple "Monom" of shape a*x^b, where a is a real number and a is an integer (summed a none negative), 
  * see: https://en.wikipedia.org/wiki/Monomial 
  * The class implements function and support simple operations as: construction, value at x, derivative, add and multiply. 
- * 
- *  @author yoav meirman 304939648
- * @author eliashiv elimelech 314763210
- *  @author boaz menachem 2088331990
+ * @author Boaz
  *
  */
 public class Monom implements function{
@@ -42,11 +39,6 @@ public class Monom implements function{
 		if(this.get_power()==0) {return getNewZeroMonom();}
 		return new Monom(this.get_coefficient()*this.get_power(), this.get_power()-1);
 	}
-	
-	/**
-	 * @param x Represents the x axis position
-	 * @return The function value in x position
-	 */
 	public double f(double x) {
 		double ans=0;
 		double p = this.get_power();
@@ -54,13 +46,7 @@ public class Monom implements function{
 		return ans;
 	} 
 	public boolean isZero() {return this.get_coefficient() == 0;}
-	
-	/** 
-	 * There will be an Exception when the input doesn't from the format coefficient(x)^power.
-	 * Explanation : The function accepts a string, and checks whether the string contains the 'x' character.
-	 * Depending on whether the 'x' character is present or not, the function adds a complement by the format.
-	 * And calculates the coefficient, and the power and And with the values received monom creates
-	 */
+	// ***************** add your code below **********************
 	public Monom(String s) {
 		error1(s);
 		int indexOfX=s.indexOf('x');
@@ -121,22 +107,11 @@ public class Monom implements function{
 	private void error1(String s) {
 		if(s.equals(""))throw new RuntimeException("ERR the  Monom should not be empty, got: "+s);
 	}
-	
-	/**
-	 * this function adding a monom to the current monom. 
-	 * If powers are not equal, an error message will be printed
-	 * @param m Represents the monom that we want to add to the monom.
-	 */
 	public void add(Monom m) {
 		if(m._power!=this._power)throw new RuntimeException("ERR the  function add should not be diffrent power, got powers: "+m._power+","+this._power);
 		this.set_coefficient(this._coefficient+m._coefficient);
 	}
 
-	/**
-	 *  Multiplication between monoms.
-	 * @param d Represents the monom that we want to multiply to the monom on which we work
-	 *
-	 */
 	public void multipy(Monom d) {
 		this.set_coefficient(this._coefficient*d._coefficient);
 		this.set_power(this._power+d._power);
@@ -169,4 +144,18 @@ public class Monom implements function{
 	private double _coefficient; 
 	private int _power;
 	
+	public static void main(String[] args) {
+		
+	}
+	@Override
+	public function initFromString(String s) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public function copy() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
