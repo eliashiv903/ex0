@@ -149,13 +149,13 @@ public class Monom implements function{
 	}
 	@Override
 	public function initFromString(String s) {
-		// TODO Auto-generated method stub
-		return null;
+		Monom a=new Monom(s);
+		return a;
 	}
 	@Override
 	public function copy() {
-		// TODO Auto-generated method stub
-		return null;
+		Monom a=new Monom(this._coefficient,this._power);
+		return a;
 	}
 
 }

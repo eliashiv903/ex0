@@ -120,8 +120,9 @@ public class Polynom implements Polynom_able{
 		deleteAllZero();
 	}
 	@Override
-	public boolean equals(Polynom_able p1) {
-		Polynom p1Regilur=new Polynom(p1);
+	public boolean equals(Object p1) {
+		String a=p1.toString();
+		Polynom p1Regilur=new Polynom(a);
 		if(this.monoms.size()!=p1Regilur.monoms.size())return false;
 		for (int i = 0; i < monoms.size(); i++) {
 			if(this.monoms.get(i).get_power()!= p1Regilur.monoms.get(i).get_power())return false;
@@ -192,7 +193,11 @@ public class Polynom implements Polynom_able{
 	}
 	@Override
 	public function initFromString(String s) {
-		// TODO Auto-generated method stub
-		return null;
+		Polynom a=new Polynom(s);
+		return a;
+	}
+	public static void main(String[] args) {
+		Polynom test =new Polynom("2x");
+		System.out.println(test.f(3));
 	}
 }
