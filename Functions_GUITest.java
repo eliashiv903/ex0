@@ -14,7 +14,7 @@ package myMath;
  */
 class Functions_GUITest {
 	public static void main(String[] a) {
-		System.out.println(FunctionsFactory());
+		
 		Functions_GUI data = FunctionsFactory();
 		int w=1000, h=600, res=200;
 		Range rx = new Range(-10,10);
@@ -66,12 +66,9 @@ class Functions_GUITest {
 		Polynom p2 = new Polynom(s2);
 		Polynom p3 = new Polynom(s3[0]);
 		ComplexFunction cf3 = new ComplexFunction(p3);
-		System.out.println(cf3);
 		for(int i=1;i<s3.length;i++) {
 			cf3.mul(new Polynom(s3[i]));
 		}
-		System.out.println(cf3);
-		System.out.println(cf3.size());
 		ComplexFunction cf = new ComplexFunction("plus", p1,p2);
 		ComplexFunction cf4 = new ComplexFunction("div", new Polynom("x+1"),cf3);
 		cf4.plus(new Monom("2"));
@@ -92,6 +89,8 @@ class Functions_GUITest {
 		}
 		ans.add(max);
 		ans.add(min);
+		//ans.clear();
+		ans.removeAll(ans);
 		System.out.println(ans.toString());
 		return ans;
 	}

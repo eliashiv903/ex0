@@ -48,6 +48,7 @@ public class Monom implements function{
 	public boolean isZero() {return this.get_coefficient() == 0;}
 	// ***************** add your code below **********************
 	public Monom(String s) {
+		if(s.charAt(s.length()-1)==' ')s=s.substring(0,s.length()-1);
 		error1(s);
 		int indexOfX=s.indexOf('x');
 		if(indexOfX==0) {

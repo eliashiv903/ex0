@@ -13,7 +13,7 @@ public class ComplexFunction implements complex_function{
 			return;
 		}
 		while(!s.equals("")) {
-			while(!((s.charAt(0)>='0' && s.charAt(0)<='9')||s.charAt(0)=='-' || s.charAt(01)=='+'))s= this.op(s);
+			while(!((s.charAt(0)>='0' && s.charAt(0)<='9')||s.charAt(0)=='-' || s.charAt(0)=='+'))s= this.op(s);
 			while(!s.equals("")) {
 				if((s.charAt(0)>='0' && s.charAt(0)<='9')||s.charAt(0)=='-' || s.charAt(0)=='+')s= this.fun(s,"",0);
 				else s=this.comlex(s,0,0,"");
@@ -123,8 +123,7 @@ public class ComplexFunction implements complex_function{
 
 	@Override
 	public function copy() {
-		ComplexFunction a=new ComplexFunction(this);
-		return a;
+		return new ComplexFunction(this);
 	}
 
 	public boolean equals(Object obj) {
@@ -212,7 +211,7 @@ public class ComplexFunction implements complex_function{
 	@Override
 	public Operation getOp() {
 		if(operations.size()==0)return Operation.None;
-	Operation a=operations.get(0);
+	Operation a=operations.get(operations.size()-1);
 		return a;
 	}
 
@@ -221,7 +220,7 @@ public class ComplexFunction implements complex_function{
 		Operation gv=bn;
 		System.out.println(gv);
 		ComplexFunction f16 = new ComplexFunction("0");
-		ComplexFunction f6 = new ComplexFunction("min(min(min(min(plus(-1.0x^4+2.4x^2+3.1,0.1x^5-1.2999999999999998x+5.0),plus(div(1.0x+1.0,mul(mul(1.0x+3.0,+1.0x-2.0),1.0x-4.0)),2.0)),div(plus(-1.0x^4+2.4x^2+3.1,+0.1x^5-1.2999999999999998x+5.0),-1.0x^4+2.4x^2+3.1)),-1.0x^4+2.4x^2+3.1),+0.1x^5-1.2999999999999998x+5.0)");
+		ComplexFunction f6 = new ComplexFunction("min(min(min(min(plus(-1.0x^4 +2.4x^2 +3.1,+0.1x^5 -1.2999999999999998x +5.0),plus(div(+1.0x +1.0,mul(mul(+1.0x +3.0,+1.0x -2.0),+1.0x -4.0)),2.0)),div(plus(-1.0x^4 +2.4x^2 +3.1,+0.1x^5 -1.2999999999999998x +5.0),-1.0x^4 +2.4x^2 +3.1)),-1.0x^4 +2.4x^2 +3.1),+0.1x^5 -1.2999999999999998x +5.0)");
 		System.out.println(f6.right());
 		System.out.println(f6.left());
 		System.out.println(f6+"hj");

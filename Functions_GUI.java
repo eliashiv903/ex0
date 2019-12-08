@@ -6,106 +6,98 @@ import java.util.Collection;
 import java.util.Iterator;
 
 public class Functions_GUI  implements functions {
-private ArrayList<function> functions1;
+private ArrayList<function> functions;
 public Functions_GUI() {
-	functions1=new ArrayList<function>();
+	functions=new ArrayList<function>();
 }
 	public Functions_GUI(String s) {
-		functions1=new ArrayList<function>();
+		functions=new ArrayList<function>();
 		int sum=0;
 		for (int i = 0; i < s.length(); i++) {
 			if(s.charAt(i)=='!') {
 				Polynom a=new Polynom(s.substring(0, i));
-				functions1.add(a);
+				functions.add(a);
 				s=s.substring(i+1);
 			}
 		}
 	}
 	public Functions_GUI(Functions_GUI p1) {
-		functions1=new ArrayList<function>();
-		for (int i = 0; i < functions1.size(); i++) {
-			Polynom a=new Polynom(p1.functions1.get(i).toString());
-			functions1.add(a);
+		functions=new ArrayList<function>();
+		for (int i = 0; i < functions.size(); i++) {
+			Polynom a=new Polynom(p1.functions.get(i).toString());
+			functions.add(a);
 		}
 	}
 	
 	@Override
 	public int size() {
 		
-		return functions1.size();
+		return functions.size();
 	}
 
 	@Override
 	public boolean isEmpty() {
-		if(functions1.size()==0)	return true;
+		if(functions.size()==0)	return true;
 		return false;
 	}
 
 	@Override
 	public boolean contains(Object o) {
-		for (int i = 0; i < functions1.size(); i++)	if(functions1.get(i).equals(o))	return true;
-		return false;
+		return functions.contains(o);
 	}
 
 	@Override
 	public Iterator<function> iterator() {
-		return functions1.iterator();
+		return functions.iterator();
 	}
 
 	@Override
 	public Object[] toArray() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return functions.toArray();
 	}
 
 	@Override
 	public <T> T[] toArray(T[] a) {
-		// TODO Auto-generated method stub
-		return null;
+		return functions.toArray(a);
 	}
-
 	@Override
 	public boolean add(function e) {
-		functions1.add(e);
+		functions.add(e);
 		
 		return true;
 	}
 	public function get(int index) {
-		return functions1.get(index);
+		return functions.get(index);
 	}
 	@Override
 	public boolean remove(Object o) {
-		for (int i = 0; i < functions1.size(); i++)	if(functions1.get(i).equals(o))	functions1.remove(i);
-		return true;
+		return functions.remove(o);
 	}
 
 	@Override
 	public boolean containsAll(Collection<?> c) {
-		if(functions1.containsAll(c))return true;
-		return false;
+		return functions.containsAll(c);
 	}
 
 	@Override
 	public boolean addAll(Collection<? extends function> c) {
-		functions1.addAll(c);
-		return true;
+		return functions.addAll(c);
 	}
 
 	@Override
 	public boolean removeAll(Collection<?> c) {
-		functions1.removeAll(c);
-		return true;
+		return functions.removeAll(c);
 	}
 
 	@Override
 	public boolean retainAll(Collection<?> c) {
-		// TODO Auto-generated method stub
-		return false;
+		return functions.retainAll(c);
 	}
 
 	@Override
 	public void clear() {
-		functions1.removeAll(this);
+		functions.clear();
 		
 	}
 
@@ -134,8 +126,9 @@ public Functions_GUI() {
 	}
 	public String toString() {
 		String a="";
-		for (int i = 0; i < functions1.size(); i++) {
-			a+=functions1.get(i)+"!";
+		for (int i = 0; i < functions.size(); i++) {
+			int n=i+1;
+			a+=" "+n+":"+functions.get(i).toString()+"\n";
 		}
 		return a;
 	}
