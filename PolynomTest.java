@@ -19,7 +19,7 @@ public class PolynomTest {
 		Polynom b=new Polynom("0");	
 		Polynom f=new Polynom("34567");	
 		Polynom g=new Polynom("34567");	
-		Iterator itr = g.copy().iteretor();
+		Iterator itr = g.iteretor();
 		while (itr.hasNext()) 	b.add(((Monom)itr.next()));;
 		if(!b.toString().equals("34567.0"))throw new RuntimeException("ERR ");
 		g.add(f);
@@ -117,6 +117,7 @@ public class PolynomTest {
 		q.multiply(w);
 		q.multiply(e);
 		q.multiply(r);
+		System.out.println(q);
 		if(f.root(-100, 100, EPSILON)!=-1.1186889838427305)throw new RuntimeException("ERR");
 		if(q.root(-6, 0,EPSILON)!=-5.000000014901161)throw new RuntimeException("ERR");
 		if(q.area(-5, 1, 0.01)!=2510.5459999980026)throw new RuntimeException("ERR");

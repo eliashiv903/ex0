@@ -6,5 +6,8 @@ package myMath;
  *
  */
 public enum Operation {
-	Plus, Times, Divid, Max, Min, Comp , None, Error
+	
+	Plus, Times, Divid, Max, Min, Comp , None, Error;
+
+	
 }

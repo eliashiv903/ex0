@@ -152,7 +152,7 @@ public class Polynom implements Polynom_able{
 		return (x0+x1)/2;
 	}
 	@Override
-	public Polynom_able copy() {
+	public function copy() {
 		Polynom ans=new Polynom(this);
 		return ans;
 	}
@@ -168,7 +168,7 @@ public class Polynom implements Polynom_able{
 		double sum=0;
 		double high=x0;
 		while(high<x1) {
-			sum+=(this.f(high)*eps);
+			if(this.f(high)>0)sum+=(this.f(high)*eps);
 			high+=eps;
 		}
 		return sum;
@@ -197,7 +197,13 @@ public class Polynom implements Polynom_able{
 		return a;
 	}
 	public static void main(String[] args) {
-		Polynom test =new Polynom("2x");
-		System.out.println(test.f(3));
+		Polynom test =new Polynom("2x+3+5x^4");
+		test.multiply(new Monom("x^5"));
+		System.out.println(test);
+		Monom test1 =new Monom(2,5);
+		String output=test.derivative().toString();
+		System.out.println(output);
+		Polynom test2 =new Polynom("2x");
+		System.out.println(test1.f(3));
 	}
 }

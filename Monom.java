@@ -157,5 +157,9 @@ public class Monom implements function{
 		Monom a=new Monom(this._coefficient,this._power);
 		return a;
 	}
+	public boolean equals(Object obj) {
+		if(this.toString().equals(obj.toString()))return true;
+		return false;
+	}
 
 }
