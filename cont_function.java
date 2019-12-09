@@ -29,6 +29,6 @@ public interface cont_function extends function{
 	 * @return an approximated value (root) for this (cont.) function 
 	 */
 	public double root(double x0, double x1, double eps);
-
 	void deleteZero(Polynom p1, int i);
+	
 }

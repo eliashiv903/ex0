@@ -8,6 +8,70 @@ import org.junit.Test;
 
 public class PolynomTest2 {
 
+	@SuppressWarnings("deprecation")
+	@Test
+		public void testInput() {
+			for (int i = 0; i < 6; i++) {
+				try{
+					Polynom f=new Polynom(".");	
+				}
+				catch(Exception f) {
+					i++;
+				}
+				assertEquals(i, 1);
+				try{
+					Polynom f=new Polynom(",");
+				}
+				catch(Exception f) {
+					i++;
+				}
+				assertEquals(i, 2);
+				try{
+					Polynom f=new Polynom("gx^5");
+				}
+				catch(Exception f) {
+					i++;
+				}
+				assertEquals(i, 3);
+				try{
+					Polynom f=new Polynom("6^3");
+				}
+				catch(Exception f) {
+					i++;
+				}
+				assertEquals(i, 4);
+				try{
+					Polynom f=new Polynom("");
+				}
+				catch(Exception f) {
+					i++;
+				}
+				assertEquals(i, 5);
+				try{
+					Polynom f=new Polynom("x2");
+				}
+				catch(Exception f) {
+					i++;
+				}
+				assertEquals(i, 6);
+				try{
+					Polynom f=new Polynom("3x^4.2");
+				}
+				catch(Exception f) {
+					i++;
+				}
+				assertEquals(i, 7);
+				Polynom e=new Polynom("3x^4");
+				try{
+					e.root(1, 3, 0.01);
+				}
+				catch(Exception f) {
+					i++;
+				}
+				assertEquals(i, 8);
+			}
+		}
+
 	
 	@SuppressWarnings("deprecation")
 	@Test

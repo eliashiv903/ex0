@@ -69,7 +69,7 @@ public class ComplexFunction implements complex_function{
 		functions.add(v);
 	}
 
-	public  ComplexFunction(String s ,function  a,function b) {//לשנות לסטרינג
+	public  ComplexFunction(String s ,function  a,function b) {
 		operations.add(setOperation(s));
 		if(setOperation(s).equals(Operation.None))throw new RuntimeException("ERR the  Monom should  be wife power afrer x or empty , got: "+s);
 		function v=a.initFromString(a.toString());
@@ -85,7 +85,6 @@ public class ComplexFunction implements complex_function{
 		else if(s.equals("div"))c=Operation.Divid;
 		else if(s.equals("min"))c=Operation.Min;
 		else if(s.equals("comp"))c=Operation.Comp;
-		//else if(s.equals("none"))c=Operation.None;
 		else throw new RuntimeException("ERR the   string for operation not good , got: "+s);
 		return c;
 	}
@@ -205,11 +204,11 @@ public class ComplexFunction implements complex_function{
 		Operation gv=bn;
 	//	System.out.println(gv);
 		ComplexFunction f16 = new ComplexFunction("plus(-1.0x^4+2.4x^2+3.1,+0.1x^5)");
-		ComplexFunction f6 = new ComplexFunction("min(min(min(min(plus(-1.0x^4 +2.4x^2 +3.1,+0.1x^5 -1.2999999999999998x +5.0),plus(div(+1.0x +1.0,mul(mul(+1.0x +3.0,+1.0x -2.0),+1.0x -4.0)),2.0)),div(plus(-1.0x^4 +2.4x^2 +3.1,+0.1x^5 -1.2999999999999998x +5.0),-1.0x^4 +2.4x^2 +3.1)),-1.0x^4 +2.4x^2 +3.1),+0.1x^5 -1.2999999999999998x +5.0)");
+		ComplexFunction f6 = new ComplexFunction("min(min(min(min(plus(-1.0x^4+2.4x^2+3.1,0.1x^5-1.2999999999999998x+5.0),plus(div(+1.0x+1.0,mul(mul(+1.0x +3.0,+1.0x -2.0),+1.0x-4.0)),2.0)),div(plus(-1.0x^4+2.4x^2+3.1,+0.1x^5-1.2999999999999998x+5.0),-1.0x^4+2.4x^2+3.1)),-1.0x^4 +2.4x^2+3.1),+0.1x^5-1.2999999999999998x+5.0)");
 		//System.out.println(f6.right());
 		//System.out.println(f6.left());
 		//System.out.println(f6+"hj");
-	//	System.out.println(f6.f(8));
+		System.out.println(f6.f(-4)+"kl");
 		function x= new Monom("0");
 		ComplexFunction f15=new ComplexFunction(x);
 	//	System.out.println(f15);
@@ -224,12 +223,14 @@ public class ComplexFunction implements complex_function{
 		ComplexFunction f4=new ComplexFunction(m);
 		f4.div(f5);
 		f4.plus(n);
-
+f4.comp(m);
+f4.min(n);
+f4.max(f4);
 		ComplexFunction f1 = new ComplexFunction("plus",x,y);//f1 ** f(x)=plus(2x,8x^2+8)
 		ComplexFunction f2= new ComplexFunction("plus",f1,x);//f2** f(x)=plus(plus(2x,8x^2+8),2x)
 		ComplexFunction f3 =new ComplexFunction("plus(div(1+x,mul(mul(3.0+x,-2.0+x),-4.0+x)),2.0)");
-		//System.out.println(f4.functions);
-		System.out.println(f6);
+		System.out.println(f4);
+		//System.out.println(f6);
 		//System.out.println(f3.f(8));
 	}
 }

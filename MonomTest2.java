@@ -6,7 +6,33 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.Test;
 
 public class MonomTest2 {
-
+	@SuppressWarnings("deprecation")
+	@Test
+public  void testKelt() {
+	Monom a;
+	String[] monoms1 = {"", "  ","2.2.0","4^2","-1.5x^2.1,3xf^5"};
+	String[] monoms2 = {"5gx", "-1.7x^-3","g","-3+","--x^2","000x0"};
+	boolean e=false;
+	for (int i = 0; i < monoms1.length; i++,e=false) {
+		try {
+		a=new Monom(monoms1[i]);
+		}
+		catch (Exception m) {
+			e=true;
+	}
+		assertEquals(e, true);
+		e=false;
+	}
+	for (int i = 0; i < monoms2.length; i++) {
+		try {
+			a=new Monom(monoms2[i]);
+			}
+		catch (Exception m) {
+				e=true;
+		}
+		assertEquals(e, true);
+	}
+}
 	@Test
 	public void testGet_coefficient() {
 		Monom test =new Monom(2,1);
