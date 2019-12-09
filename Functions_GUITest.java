@@ -1,4 +1,5 @@
 package myMath;
+
 /**
  * Partial JUnit + main test for the GUI_Functions class, expected output from the main:
  * 0) java.awt.Color[r=0,g=0,b=255]  f(x)= "plus(-1.0x^4+2.4x^2+3.1,+0.1x^5-1.2999999999999998x+5.0)"
@@ -14,7 +15,6 @@ package myMath;
  */
 class Functions_GUITest {
 	public static void main(String[] a) {
-		
 		Functions_GUI data = FunctionsFactory();
 		int w=1000, h=600, res=200;
 		Range rx = new Range(-10,10);
@@ -90,7 +90,7 @@ class Functions_GUITest {
 		ans.add(max);
 		ans.add(min);
 		//ans.clear();
-		ans.removeAll(ans);
+		//ans.removeAll(ans);
 		System.out.println(ans.toString());
 		return ans;
 	}

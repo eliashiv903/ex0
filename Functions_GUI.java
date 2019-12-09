@@ -6,39 +6,17 @@ import java.util.Collection;
 import java.util.Iterator;
 
 public class Functions_GUI  implements functions {
-private ArrayList<function> functions;
-public Functions_GUI() {
-	functions=new ArrayList<function>();
-}
-	public Functions_GUI(String s) {
-		functions=new ArrayList<function>();
-		int sum=0;
-		for (int i = 0; i < s.length(); i++) {
-			if(s.charAt(i)=='!') {
-				Polynom a=new Polynom(s.substring(0, i));
-				functions.add(a);
-				s=s.substring(i+1);
-			}
-		}
-	}
+private ArrayList<function> functions=new ArrayList<function>();
+
+public Functions_GUI() {}
+
 	public Functions_GUI(Functions_GUI p1) {
-		functions=new ArrayList<function>();
-		for (int i = 0; i < functions.size(); i++) {
-			Polynom a=new Polynom(p1.functions.get(i).toString());
-			functions.add(a);
-		}
+		for (int i = 0; i < functions.size(); i++) 	functions.add(new Polynom(p1.functions.get(i).toString()));
 	}
 	
 	@Override
-	public int size() {
-		
-		return functions.size();
-	}
-
-	@Override
 	public boolean isEmpty() {
-		if(functions.size()==0)	return true;
-		return false;
+		return functions.isEmpty();
 	}
 
 	@Override
@@ -53,7 +31,6 @@ public Functions_GUI() {
 
 	@Override
 	public Object[] toArray() {
-		
 		return functions.toArray();
 	}
 
@@ -63,9 +40,7 @@ public Functions_GUI() {
 	}
 	@Override
 	public boolean add(function e) {
-		functions.add(e);
-		
-		return true;
+		return functions.add(e.copy());
 	}
 	public function get(int index) {
 		return functions.get(index);
@@ -98,7 +73,6 @@ public Functions_GUI() {
 	@Override
 	public void clear() {
 		functions.clear();
-		
 	}
 
 	@Override
@@ -131,6 +105,11 @@ public Functions_GUI() {
 			a+=" "+n+":"+functions.get(i).toString()+"\n";
 		}
 		return a;
+	}
+
+	@Override
+	public int size() {
+		return functions.size();
 	}
 
 }
