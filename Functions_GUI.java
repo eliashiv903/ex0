@@ -1,5 +1,12 @@
 package myMath;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -77,20 +84,31 @@ public Functions_GUI() {}
 
 	@Override
 	public void initFromFile(String file) throws IOException {
-		// TODO Auto-generated method stub
-		
+		   var fileName = "src/resources/"+file+".txt";
+		   File file1 = new File("C:\\Users\\יואב\\Desktop\\new\\new yaer\\"+file+".txt"); 
+		   BufferedReader br = new BufferedReader(new FileReader(file)); 
+		   String st; 
+		   while ((st = br.readLine()) != null)   this.add( new ComplexFunction().initFromString(st)); 
 	}
 
 	@Override
 	public void saveToFile(String file) throws IOException {
-		// TODO Auto-generated method stub
-		
-	}
+		   File file1 = new File(file);
+	          //Create the file
+	          if (file1.createNewFile()){
+	            System.out.println("File is created!");
+	          }else{
+	            System.out.println("File already exists.");
+	          }
+	          //Write Content
+	          FileWriter writer = new FileWriter(file1);
+	          for (int i = 0; i <this.size(); i++) 
+	          writer.write(this.functions.get(i).toString()+"\n");
+	          writer.close();
+	    }
 
 	@Override
 	public void drawFunctions(int width, int height, Range rx, Range ry, int resolution) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -98,18 +116,14 @@ public Functions_GUI() {}
 		// TODO Auto-generated method stub
 		
 	}
-	public String toString() {
-		String a="";
-		for (int i = 0; i < functions.size(); i++) {
-			int n=i+1;
-			a+=" "+n+":"+functions.get(i).toString()+"\n";
-		}
-		return a;
-	}
+	
 
 	@Override
 	public int size() {
 		return functions.size();
+	}
+	public static void main(String[] args) {
+		
 	}
 
 }

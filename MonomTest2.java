@@ -8,7 +8,7 @@ import org.junit.Test;
 public class MonomTest2 {
 	@SuppressWarnings("deprecation")
 	@Test
-public  void testKelt() {
+public  void testInput() {
 	Monom a;
 	String[] monoms1 = {"", "  ","2.2.0","4^2","-1.5x^2.1,3xf^5"};
 	String[] monoms2 = {"5gx", "-1.7x^-3","g","-3+","--x^2","000x0"};
