@@ -68,7 +68,15 @@ public class ComplexFunction implements complex_function{
 		function v=a.initFromString(a.toString());
 		functions.add(v);
 	}
-
+	public  ComplexFunction(Operation op ,function  a,function b) {
+		Operation c=op;
+		operations.add(c);
+		if(c.equals(Operation.None))throw new RuntimeException("ERR the  Monom should  be wife power afrer x or empty , got: "+c);
+		function v=a.initFromString(a.toString());
+		function v1=b.initFromString(b.toString());
+		functions.add(v);
+		functions.add(v1);
+	}
 	public  ComplexFunction(String s ,function  a,function b) {
 		operations.add(setOperation(s));
 		if(setOperation(s).equals(Operation.None))throw new RuntimeException("ERR the  Monom should  be wife power afrer x or empty , got: "+s);
