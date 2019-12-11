@@ -28,7 +28,7 @@ import java.util.Iterator;
 import java.awt.*;
 import java.io.FileReader;
 import java.util.Iterator;
-import com.google.gson.*;
+import com.google.gson.Gson;
 
 public class Functions_GUI  implements functions {
 	
