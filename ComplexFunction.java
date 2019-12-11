@@ -5,22 +5,22 @@ import java.util.ArrayList;
 public class ComplexFunction implements complex_function{
 	private ArrayList<function> functions= new ArrayList<function>();
 	private ArrayList<Operation> operations=new ArrayList<Operation>();
-
+	
 	public  ComplexFunction(String s) {
+		err(s,0,0);
 		if(s.length()==0) throw new RuntimeException("ERR the  string sholdn't be empty , got: "+s);
 		if((s.charAt(0)>='0' && s.charAt(0)<='9')||s.charAt(0)=='-' || s.charAt(0)=='+'|| s.charAt(0)=='x') {
 			functions.add(new Polynom(s));
 			return;
 		}
-			while(!((s.charAt(0)>='0' && s.charAt(0)<='9')||s.charAt(0)=='-' || s.charAt(0)=='+'))s= this.op(s,"",0);
-			while(!s.equals("")) {
-				
-				if((s.charAt(0)>='0' && s.charAt(0)<='9')||s.charAt(0)=='-' || s.charAt(0)=='+')s= this.polynom(s,"",0);
-				else s=this.comlex(s,0,0,"");
-				if(s.length()>0) if(s.charAt(0)==',')s=s.substring(1, s.length());
-			}
+		while(!((s.charAt(0)>='0' && s.charAt(0)<='9')||s.charAt(0)=='-' || s.charAt(0)=='+'))s= this.op(s,"",0);
+		while(!s.equals("")) {
+			if((s.charAt(0)>='0' && s.charAt(0)<='9')||s.charAt(0)=='-' || s.charAt(0)=='+')s= this.polynom(s,"",0);
+			else if(s.charAt(0)>='c' && s.charAt(0)<='p'&&s.charAt(0)!='x') s=this.comlex(s,0,0,"");
+			else throw new RuntimeException("ERR the   string  not legal: "+s);
+			if(s.length()>0) if(s.charAt(0)==',')s=s.substring(1, s.length());
+		}
 	}
-
 	private String comlex(String s,int sum1,int sum2,String r) {
 		for (int j = 0;  j <s.length() && s.charAt(j)!=')' ; j++)  if(s.charAt(j)=='(')sum1++; 
 		int j = 0;
@@ -32,31 +32,36 @@ public class ComplexFunction implements complex_function{
 		return s.substring(j+1, s.length());
 	}
 
-	private void addToStrat(Operation a) {
+	private void addOpToStrat(Operation a) {
 		ArrayList<Operation> operations1=new ArrayList<Operation>();
 		for (int i = 0; i < operations.size(); i++) operations1.add(operations.get(i));
 		this.operations=new ArrayList<Operation>();
 		operations.add(a);
 		for (int i = 0; i < operations1.size(); i++) operations.add(operations1.get(i));
 	}
-
 	private  String op(String s,String r,int j) {
 		for ( ; j <s.length() && s.charAt(j)!='('; j++) 	r+=s.charAt(j);
-		this.addToStrat(setOperation(r));
+		this.addOpToStrat(setOperation(r));
 		return s.substring(j+1, s.length());
 	}
-
 	private String polynom(String s,String r,int j) {
 		for ( ; j < s.length()&&s.charAt(j)!=',' && s.charAt(j)!=')'; j++) 	r+=s.charAt(j);
 		this.functions.add(new Polynom(r));
 		return s.substring(j+1, s.length());
 	}
-
-	private  ComplexFunction(ComplexFunction p) {
+	private void err(String s,int count1,int count2) {
+		for (int j = 0;  j <s.length() ; j++) {
+			if(s.charAt(j)=='(')count1++;
+			if(s.charAt(j)==',')count2++;
+		}
+		if(count1!=count2)throw new RuntimeException("ERR the   string for not legalo00: "+s);
+	}
+	
+	public  ComplexFunction(ComplexFunction p) {
 		for (int i = 0; i < p.functions.size(); i++) functions.add(initFromString(p.functions.get(i).toString()));
 		for (int i = 0; i < p.operations.size(); i++) {
 			Operation  a=p.operations.get(i);
-			operations.add(p.operations.get(i));
+			operations.add(a);
 		}
 	}
 
@@ -71,7 +76,7 @@ public class ComplexFunction implements complex_function{
 	public  ComplexFunction(Operation op ,function  a,function b) {
 		Operation c=op;
 		operations.add(c);
-		if(c.equals(Operation.None))throw new RuntimeException("ERR the  Monom should  be wife power afrer x or empty , got: "+c);
+		if(c.equals(Operation.None))throw new RuntimeException("ERR the  Operation not ligel , got: "+op);
 		function v=a.initFromString(a.toString());
 		function v1=b.initFromString(b.toString());
 		functions.add(v);
@@ -79,7 +84,6 @@ public class ComplexFunction implements complex_function{
 	}
 	public  ComplexFunction(String s ,function  a,function b) {
 		operations.add(setOperation(s));
-		if(setOperation(s).equals(Operation.None))throw new RuntimeException("ERR the  Monom should  be wife power afrer x or empty , got: "+s);
 		function v=a.initFromString(a.toString());
 		function v1=b.initFromString(b.toString());
 		functions.add(v);
@@ -87,14 +91,13 @@ public class ComplexFunction implements complex_function{
 	}
 	public static  Operation setOperation(String s) {
 		Operation c;
-		if(s.equals("plus"))c=Operation.Plus;
-		else if(s.equals("mul"))c=Operation.Times;
-		else if(s.equals("max"))c=Operation.Max;
-		else if(s.equals("div"))c=Operation.Divid;
-		else if(s.equals("min"))c=Operation.Min;
-		else if(s.equals("comp"))c=Operation.Comp;
+		if(s.equals("plus"))return Operation.Plus;
+		else if(s.equals("mul"))return Operation.Times;
+		else if(s.equals("max"))return Operation.Max;
+		else if(s.equals("div"))return Operation.Divid;
+		else if(s.equals("min"))return Operation.Min;
+		else if(s.equals("comp"))return Operation.Comp;
 		else throw new RuntimeException("ERR the   string for operation not good , got: "+s);
-		return c;
 	}
 
 	@Override
@@ -202,15 +205,15 @@ public class ComplexFunction implements complex_function{
 	}
 	@Override
 	public Operation getOp() {
-	if(operations.size()==0)return Operation.None;
-	Operation a=operations.get(operations.size()-1);
+		if(operations.size()==0)return Operation.None;
+		Operation a=operations.get(operations.size()-1);
 		return a;
 	}
 
 	public static void main(String[] args) {
 		Operation bn=Operation.Divid;
 		Operation gv=bn;
-	//	System.out.println(gv);
+		//	System.out.println(gv);
 		ComplexFunction f16 = new ComplexFunction("plus(-1.0x^4+2.4x^2+3.1,+0.1x^5)");
 		ComplexFunction f6 = new ComplexFunction("min(min(min(min(plus(-1.0x^4+2.4x^2+3.1,0.1x^5-1.2999999999999998x+5.0),plus(div(+1.0x+1.0,mul(mul(+1.0x +3.0,+1.0x -2.0),+1.0x-4.0)),2.0)),div(plus(-1.0x^4+2.4x^2+3.1,+0.1x^5-1.2999999999999998x+5.0),-1.0x^4+2.4x^2+3.1)),-1.0x^4 +2.4x^2+3.1),+0.1x^5-1.2999999999999998x+5.0)");
 		//System.out.println(f6.right());
@@ -219,7 +222,7 @@ public class ComplexFunction implements complex_function{
 		System.out.println(f6.f(-4)+"kl");
 		function x= new Monom("0");
 		ComplexFunction f15=new ComplexFunction(x);
-	//	System.out.println(f15);
+		//	System.out.println(f15);
 		function y= new Polynom("x+3");
 		function j= new Polynom("x-2");
 		function b= new Polynom("x-4");
@@ -231,9 +234,9 @@ public class ComplexFunction implements complex_function{
 		ComplexFunction f4=new ComplexFunction(m);
 		f4.div(f5);
 		f4.plus(n);
-f4.comp(m);
-f4.min(n);
-f4.max(f4);
+		f4.comp(m);
+		f4.min(n);
+		f4.max(f4);
 		ComplexFunction f1 = new ComplexFunction("plus",x,y);//f1 ** f(x)=plus(2x,8x^2+8)
 		ComplexFunction f2= new ComplexFunction("plus",f1,x);//f2** f(x)=plus(plus(2x,8x^2+8),2x)
 		ComplexFunction f3 =new ComplexFunction("plus(div(1+x,mul(mul(3.0+x,-2.0+x),-4.0+x)),2.0)");

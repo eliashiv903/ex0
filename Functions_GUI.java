@@ -28,18 +28,19 @@ import java.util.Iterator;
 import java.awt.*;
 import java.io.FileReader;
 import java.util.Iterator;
-import com.google.gson.Gson;
+import com.google.gson.*;
 
 public class Functions_GUI  implements functions {
-	
-private ArrayList<function> functions=new ArrayList<function>();
 
-public Functions_GUI() {}
+	private ArrayList<function> functions=new ArrayList<function>();
+
+	public Functions_GUI() {
+	}
 
 	public Functions_GUI(Functions_GUI p1) {
 		for (int i = 0; i < functions.size(); i++) 	functions.add(new Polynom(p1.functions.get(i).toString()));
 	}
-	
+
 	@Override
 	public boolean isEmpty() {
 		return functions.isEmpty();
@@ -103,24 +104,25 @@ public Functions_GUI() {}
 
 	@Override
 	public void initFromFile(String file) throws IOException {
-		   var fileName = "src/resources/"+file+".txt";
-		   File file1 = new File("C:\\Users\\יואב\\Desktop\\new\\new yaer\\"+file+".txt"); 
-		   BufferedReader br = new BufferedReader(new FileReader(file)); 
-		   String st; 
-		   while ((st = br.readLine()) != null)   this.add( new ComplexFunction().initFromString(st)); 
+		var fileName = file;
+		File file1 = new File(file); 
+		BufferedReader br = new BufferedReader(new FileReader(file)); 
+		String st; 
+		while ((st = br.readLine()) != null)   this.add( new ComplexFunction().initFromString(st)); 
 	}
 
 	@Override
 	public void saveToFile(String file) throws IOException {
-		   File file1 = new File(file);
-	          //Create the file
-	          if (file1.createNewFile())  System.out.println("File is created!");
-	          else System.out.println("File already exists.");
-	          //Write Content
-	          FileWriter writer = new FileWriter(file1);
-	          for (int i = 0; i <this.size(); i++)  writer.write(this.functions.get(i).toString()+"\n");
-	          writer.close();
-	    }
+		File file1 = new File(file);
+		//Create the file
+		if (file1.createNewFile())  System.out.println("File is created!");
+		else System.out.println("File already exists.");
+		//Write Content
+		FileWriter writer = new FileWriter(file1);
+		for (int i = 0; i <this.size(); i++)  writer.write(this.functions.get(i).toString()+"\n");
+		writer.close();
+	}
+	
 	public static Color[] Colors = {Color.blue, Color.cyan, Color.MAGENTA, Color.ORANGE, 
 			Color.red, Color.GREEN, Color.PINK};
 	@Override
@@ -157,35 +159,30 @@ public Functions_GUI() {}
 
 	@Override
 	public void drawFunctions(String json_file) {
-Gson gson = new Gson();
-		
-		//Option 1: from JSON String to Object 
-		//Bookstore bookstore = gson.fromJson("some json string",Bookstore.class);
-		
+		Gson gson = new Gson();
 		try 
 		{
 			//Option 2: from JSON file to Object
 			FileReader reader = new FileReader(json_file);
 			DataStdDraw dataStdDraw = gson.fromJson(reader,DataStdDraw.class);
-			drawFunctions(dataStdDraw.getWidth(), dataStdDraw.getHeight(), dataStdDraw.getRange_X(), dataStdDraw.getRange_Y(), dataStdDraw.getResolution());
-			System.out.println(dataStdDraw );
-			
+			Range x=new Range(dataStdDraw.getRange_X()[0], dataStdDraw.getRange_X()[1]);
+			Range y=new Range(dataStdDraw.getRange_Y()[0], dataStdDraw.getRange_Y()[1]);
+			drawFunctions(dataStdDraw.getWidth(), dataStdDraw.getHeight(), x,y, dataStdDraw.getResolution());
 		} 
 		catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} 
 	}
-	
-	
 
 	@Override
 	public int size() {
 		return functions.size();
 	}
 	public static void main(String[] args) {
+		ComplexFunction test =new ComplexFunction("plus(div(1+x,mul(mul(3.0+x,-2.0+x),-4.0+x))),2.0)");
 		ComplexFunction cf = new ComplexFunction();
 		String s1="plus(-1.0x^4+2.4x^2+3.1,+0.1x^5-1.2999999999999998x+5.0)";
-		
+
 		String s2="plus(div(+1.0x +1.0,mul(mul(+1.0x +3.0,+1.0x -2.0),+1.0x -4.0)),2.0)";
 		String s3="div(plus(-1.0x^4 +2.4x^2 +3.1,+0.1x^5 -1.2999999999999998x +5.0),-1.0x^4 +2.4x^2 +3.1)";
 		String s4="-1.0x^4 +2.4x^2 +3.1";
@@ -208,7 +205,7 @@ Gson gson = new Gson();
 		int w=1000, h=600, res=200;
 		Range rx = new Range(-10,10);
 		Range ry = new Range(-5,15);
-	
+
 		a.drawFunctions(1000,600,rx,ry,res);
 	}
 

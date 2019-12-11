@@ -68,6 +68,20 @@ public class ComplexFunctionTest {
 			i++;
 		}
 		assertEquals(i, 8);
+		try{
+			ComplexFunction test =new ComplexFunction("plus(div(1+x,mul(mul(3.0+x,-2.0+x),-4.0+x))),2.0)");	
+		}
+		catch(Exception f) {
+			i++;
+		}
+		assertEquals(i, 9);
+		try{
+			ComplexFunction test =new ComplexFunction("plus(div(1+x,mul(mul(3.0+x,-2.0,+x),-4.0+x)),2.0)");
+		}
+		catch(Exception f) {
+			i++;
+		}
+		assertEquals(i, 10);
 		}
 	}
 	

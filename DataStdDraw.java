@@ -2,36 +2,25 @@ package myMath;
 
 public class DataStdDraw {
 
-	private int width;
-	private int height;
-	private int resolution;
-	private Range range_X;
-	private Range range_Y;
-public DataStdDraw (int width,int height,int resolution,Range range_X,Range range_Y) {
-	this.width=width;
-	this.height=height;
-	this.resolution=resolution;
-	this.range_X=range_X;
-	this.range_Y=range_Y;
-}
+	private int Width;
+	private int Height;
+	private int Resolution;
+	private double [] Range_X= new double[2];
+	private double [] Range_Y=new double[2];
+	
 public int getWidth () {
-	return this.width;
+	return this.Width;
 }
 public int getHeight () {
-	return this.height;
+	return this.Height;
 }
 public int getResolution () {
-	return this.resolution;
+	return this.Resolution;
 }
-public Range getRange_X() {
-	return this.range_X;
+public double[] getRange_X() {
+	return this.Range_X;
 }
-public Range getRange_Y () {
-	return this.range_Y;
-}
-public static void main(String[] args) {
-	Range b=new Range(1, 2);
-	DataStdDraw a=new DataStdDraw (1,1,1,b,b);
-
+public double[] getRange_Y() {
+	return this.Range_Y;
 }
 }
