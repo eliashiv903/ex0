@@ -14,10 +14,10 @@ public class MonomTest_junit {
         Monom x= new Monom(0,0);
         Monom y= new Monom(0,0);
         x.set_coefficient(5);
-        x.set_poewr(2);
+        x.set_power(2);
         x=x.derivative();
         y.set_coefficient(10);
-        y.set_poewr(1);
+        y.set_power(1);
         assertEquals(x,y);
 
     }
@@ -34,7 +34,7 @@ public class MonomTest_junit {
     @Test
     public void isZero() {
         Monom y= new Monom("0");
-        assertEquals(new Monom(),y);
+        assertEquals(new Monom(0,0),y);
     }
 
     @Test

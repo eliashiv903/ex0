@@ -1,7 +1,20 @@
 package myMath;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.io.BufferedReader;
-
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
@@ -15,10 +28,8 @@ import java.util.Iterator;
 import java.awt.*;
 import java.io.FileReader;
 import java.util.Iterator;
- 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
+import com.google.gson.*;
+
 public class Functions_GUI  implements functions {
 	
 private ArrayList<function> functions=new ArrayList<function>();
@@ -103,80 +114,68 @@ public Functions_GUI() {}
 	public void saveToFile(String file) throws IOException {
 		   File file1 = new File(file);
 	          //Create the file
-	          if (file1.createNewFile()){
-	            System.out.println("File is created!");
-	          }else{
-	            System.out.println("File already exists.");
-	          }
+	          if (file1.createNewFile())  System.out.println("File is created!");
+	          else System.out.println("File already exists.");
 	          //Write Content
 	          FileWriter writer = new FileWriter(file1);
-	          for (int i = 0; i <this.size(); i++) 
-	          writer.write(this.functions.get(i).toString()+"\n");
+	          for (int i = 0; i <this.size(); i++)  writer.write(this.functions.get(i).toString()+"\n");
 	          writer.close();
 	    }
 	public static Color[] Colors = {Color.blue, Color.cyan, Color.MAGENTA, Color.ORANGE, 
 			Color.red, Color.GREEN, Color.PINK};
 	@Override
 	public void drawFunctions(int width, int height, Range rx, Range ry, int resolution) {
-		
 		int n = resolution;
 		StdDraw.setCanvasSize(width, height);
-		int size = this.size();
+		int size = size();
 		double[] x = new double[n+1];
 		double[][] yy = new double[size][n+1];
 		double x_step = (rx.get_max()-rx.get_min())/n;
 		double x0 = rx.get_min();
 		for (int i=0; i<=n; i++) {
 			x[i] = x0;
-			for(int a=0;a<size;a++) {
-				yy[a][i] = this.get(a).f(x[i]);
-			}
+			for(int a=0;a<size;a++) 	yy[a][i] = this.get(a).f(x[i]);
 			x0+=x_step;
 		}
 		StdDraw.setXscale(rx.get_min(), rx.get_max());
 		StdDraw.setYscale(ry.get_min(), ry.get_max());
-	
-		
-		// plot the approximation to the function
-		for(int a=0;a<size;a++) {
-			int c = a%Colors.length;
-			StdDraw.setPenColor(Colors[c]);
-		
-			System.out.println(a+") "+Colors[a]+"  f(x)= "+this.get(a));
-			for (int i = 0; i < n; i++) {
-				StdDraw.line(x[i], yy[a][i], x[i+1], yy[a][i+1]);
-			}
-		}	
+		StdDraw.setPenRadius(0.0009);
+		for (double i = rx.get_min(); i <= rx.get_max(); i++) StdDraw.line(i, ry.get_min(), i, ry.get_max());
+		for (double i = ry.get_min(); i <= ry.get_max(); i++) 	StdDraw.line(rx.get_min(), i, rx.get_max(), i);
+		StdDraw.setPenRadius(0.007);
+		StdDraw.line(rx.get_min(),0, rx.get_max(),0);
+		StdDraw.line(0,ry.get_min(), 0,ry.get_max());
+		StdDraw.setPenRadius(0.004);
+		for(double y=ry.get_min();y<=ry.get_max();y++) StdDraw.text(-0.5,y ,""+(int)y);
+		for(double x1=rx.get_min();x1<=rx.get_max();x1++) 	StdDraw.text(x1,-0.4 ,""+(int)x1);
+		for(int i=0;i<size;i++) {
+			int g = i%Colors.length;
+			StdDraw.setPenColor(Colors[g]);
+			for (int j = 0; j < n; j++) 	StdDraw.line(x[j], yy[i][j], x[j+1], yy[i][j+1]);
+		}
 	}
 
 	@Override
 	public void drawFunctions(String json_file) {
-		 JSONParser parser = new JSONParser();
-		 System.out.println(1);
-	        try {
-	 
-	            Object obj = parser.parse(new FileReader(
-	                    "/Users/<username>/Documents/file1.txt"));
-	 
-	            JSONObject jsonObject = (JSONObject) obj;
-	 
-	            String name = (String) jsonObject.get("Name");
-	            String author = (String) jsonObject.get("Author");
-	            JSONArray companyList = (JSONArray) jsonObject.get("Company List");
-	 
-	            System.out.println("Name: " + name);
-	            System.out.println("Author: " + author);
-	            System.out.println("\nCompany List:");
-	            Iterator<String> iterator = companyList.iterator();
-	            while (iterator.hasNext()) {
-	                System.out.println(iterator.next());
-	            }
-	 
-	        } catch (Exception e) {
-	            e.printStackTrace();
-	        }
+Gson gson = new Gson();
 		
+		//Option 1: from JSON String to Object 
+		//Bookstore bookstore = gson.fromJson("some json string",Bookstore.class);
+		
+		try 
+		{
+			//Option 2: from JSON file to Object
+			FileReader reader = new FileReader(json_file);
+			DataStdDraw dataStdDraw = gson.fromJson(reader,DataStdDraw.class);
+			drawFunctions(dataStdDraw.getWidth(), dataStdDraw.getHeight(), dataStdDraw.getRange_X(), dataStdDraw.getRange_Y(), dataStdDraw.getResolution());
+			System.out.println(dataStdDraw );
+			
+		} 
+		catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} 
 	}
+	
 	
 
 	@Override
@@ -201,6 +200,8 @@ public Functions_GUI() {}
 		a.add(cf.initFromString(s5));
 		a.add(cf.initFromString(s6));
 		a.add(cf.initFromString(s7));
+		//a.add(cf.initFromString(""));
+		//a.add(cf.initFromString(s7));
 		for (int i = 0; i < a.size(); i++) {
 			System.out.println(a.get(i).f(0));
 		}

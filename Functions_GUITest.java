@@ -4,7 +4,7 @@ import java.util.Iterator;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
+import com.google.gson.Gson;
 import myMath.ComplexFunction;
 import myMath.Functions_GUI;
 import myMath.Monom;

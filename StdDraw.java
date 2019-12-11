@@ -1877,6 +1877,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 * @param args the command-line arguments
 	 */
 	public static void main(String[] args) {
+		
 		StdDraw.square(0.2, 0.8, 0.1);
 		StdDraw.filledSquare(0.8, 0.8, 0.2);
 		StdDraw.circle(0.8, 0.2, 0.2);

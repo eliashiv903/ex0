@@ -8,7 +8,7 @@ public class ComplexFunction implements complex_function{
 
 	public  ComplexFunction(String s) {
 		if(s.length()==0) throw new RuntimeException("ERR the  string sholdn't be empty , got: "+s);
-		if((s.charAt(0)>='0' && s.charAt(0)<='9')||s.charAt(0)=='-' || s.charAt(0)=='+') {
+		if((s.charAt(0)>='0' && s.charAt(0)<='9')||s.charAt(0)=='-' || s.charAt(0)=='+'|| s.charAt(0)=='x') {
 			functions.add(new Polynom(s));
 			return;
 		}
