@@ -15,7 +15,7 @@ for example, It is possible to draw the polynomial:
 
 ## main class in the project: 
 - **Monom:** https://github.com/eliashiv903/ex0/wiki/monom
-- **Plynom:** https://github.com/eliashiv903/ex0/wiki/polynom
+- **Polynom:** https://github.com/eliashiv903/ex0/wiki/polynom
 - **Function_GUI:** https://github.com/eliashiv903/ex0/wiki/Functions-GUI
 - **Complex_Function:** https://github.com/eliashiv903/ex0/wiki/Complex-Function
 
