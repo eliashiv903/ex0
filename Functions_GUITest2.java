@@ -2,85 +2,109 @@ package myMath;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Iterator;
+
 import org.junit.jupiter.api.Test;
 
 class Functions_GUITest2 {
+	@SuppressWarnings("deprecation")
 	@Test
-public  void testInitFromFile() {
+
 	
-	//	assertEquals(e, true);
-	
+	public void testInitFromFileAndSaveToFileAndDrawFunctions1() {
+	Functions_GUI ans = new Functions_GUI();
+	String s1 = "3.1 +2.4x^2 -x^4";
+	String s2 = "5 +2x -3.3x +0.1x^5";
+	String[] s3 = {"x +3","x -2", "x -4"};
+	Polynom p1 = new Polynom(s1);
+	Polynom p2 = new Polynom(s2);
+	Polynom p3 = new Polynom(s3[0]);
+	ComplexFunction cf3 = new ComplexFunction(p3);
+	for(int i=1;i<s3.length;i++) {
+		cf3.mul(new Polynom(s3[i]));
+	}
+	ComplexFunction cf = new ComplexFunction(Operation.Plus, p1,p2);
+	ComplexFunction cf4 = new ComplexFunction("div", new Polynom("x +1"),cf3);
+	cf4.plus(new Monom("2"));
+	ans.add(cf.copy());
+	ans.add(cf4.copy());
+	cf.div(p1);
+	ans.add(cf.copy());
+	String s = cf.toString();
+	function cf5 = cf4.initFromString(s1);
+	function cf6 = cf4.initFromString(s2);
+	ans.add(cf5.copy());
+	ans.add(cf6.copy());
+	Iterator<function> iter = ans.iterator();
+	function f = iter.next();
+	ComplexFunction max = new ComplexFunction(f);
+	ComplexFunction min = new ComplexFunction(f);
+	while(iter.hasNext()) {
+		f = iter.next();
+		max.max(f);
+		min.min(f);
+	}
+	ans.add(max);
+	ans.add(min);	
+			String file = "function_filesdf.txt";
+			Functions_GUI ans2 = new Functions_GUI();
+			try {
+				ans.saveToFile(file);
+				ans2.initFromFile(file);
+				                                         
+			}
+			catch(Exception e) {e.printStackTrace();}
+			int  res=200;
+			Range rx = new Range(-10,10);
+			Range ry = new Range(-5,15);
+			
+			ans2.drawFunctions(1000,600,rx,ry,res);
+			assertEquals(ans2.containsAll(ans), true);
 }
-	@Test
-	public void testSaveToFile( Functions_GUI a) {
-		Monom test =new Monom(2,1);
-		double output=test.get_coefficient();
-		assertEquals(output, 2);
-	}
 	@SuppressWarnings("deprecation")
 	@Test
-	public void testDrawFunctions() {
-		Monom test =new Monom("22x^6");
-		double output=test.get_power();
-		assertEquals(output, 6);
-	}
-	@SuppressWarnings("deprecation")
-	@Test
-	public void testDrawFunctionsJsonFile() {
-		Monom test =new Monom(2,5);
-		String output=test.derivative().toString();
-		assertEquals(output, "10.0x^4");
-	}
-	@SuppressWarnings("deprecation")
-	@Test
-	public void testF() {
-		Monom test =new Monom("4x^2");
-		double output=test.f(2);
-		assertEquals(output, 16);
-	}
-	@SuppressWarnings("deprecation")
-	@Test
-	public void testIsZero() {
-		Monom test =new Monom(0,0);
-		boolean output=test.isZero();
-		assertEquals(output, true);
-	}
-	@SuppressWarnings("deprecation")
-	@Test
-	public void testMultiply() {
-		Monom test =new Monom("2x^3");
-		Monom test1 =new Monom("x^2");
-		test.multipy(test1);
-		Monom output=new Monom(test.toString());
-		assertEquals(output.toString(), "2.0x^5");
-	}
-	@Test
-	public void testAdd() {
-		Monom test =new Monom("4x^3");
-		Monom test1 =new Monom("3x^3");
-		test.add(test1);
-		Monom output=new Monom(test.toString());
-		assertEquals(output.toString(), "7.0x^3");
-	}
-	@Test
-	public void testInitFromString() {
-	Polynom test=new Polynom("2x");	
-	Monom test1 =new Monom("3x^3");
-	boolean output=test1.initFromString("2x").equals(test);
-		assertEquals(output, true);
-	}
-	@Test
-	public void testEquals() {
-		Monom test =new Monom("4x^3");
-		Monom test1 =new Monom(4,3);
-		assertEquals(test, test1);
-	}
-	@Test
-	public void testCopy() {
-			Monom test =new Monom("4x^3");
-			Monom test1 =new Monom(test);
-		assertEquals(test1, test);
-	}
+
+	public void testInitFromFileAndSaveToFileAndDrawFunctions2() {
+		ComplexFunction cf = new ComplexFunction();
+		String s1="plus(-1.0x^4+2.4x^2+3.1,+0.1x^5-1.2999999999999998x+5.0)";
+		String s2="plus(div(+1.0x +1.0,mul(mul(+1.0x +3.0,+1.0x -2.0),+1.0x -4.0)),2.0)";
+		String s3="div(plus(-1.0x^4 +2.4x^2 +3.1,+0.1x^5 -1.2999999999999998x +5.0),-1.0x^4 +2.4x^2 +3.1)";
+		String s4="-1.0x^4 +2.4x^2 +3.1";
+		String s5="max(max(max(max(plus(-1.0x^4 +2.4x^2 +3.1,+0.1x^5 -1.2999999999999998x +5.0),plus(div(+1.0x +1.0,mul(mul(+1.0x +3.0,+1.0x -2.0),+1.0x -4.0)),2.0)),div(plus(-1.0x^4 +2.4x^2 +3.1,+0.1x^5 -1.2999999999999998x +5.0),-1.0x^4 +2.4x^2 +3.1)),-1.0x^4 +2.4x^2 +3.1),+0.1x^5 -1.2999999999999998x +5.0)";
+		String s6="min(min(min(min(plus(-1.0x^4 +2.4x^2 +3.1,+0.1x^5 -1.2999999999999998x +5.0),plus(div(+1.0x +1.0,mul(mul(+1.0x +3.0,+1.0x -2.0),+1.0x -4.0)),2.0)),div(plus(-1.0x^4 +2.4x^2 +3.1,+0.1x^5 -1.2999999999999998x +5.0),-1.0x^4 +2.4x^2 +3.1)),-1.0x^4 +2.4x^2 +3.1),+0.1x^5 -1.2999999999999998x +5.0)";
+		String s7="+0.1x^5 -1.2999999999999998x +5.0";
+		Functions_GUI a=new Functions_GUI();
+		Polynom w=new Polynom(s4);
+		Polynom w1=new Polynom("45+34x+x^5");
+		ComplexFunction cf4 = new ComplexFunction("comp", new Polynom("x +1"),w);
+		cf4.comp(cf.initFromString(s7));
+		cf4.comp(cf.initFromString(s2));
+		cf4.comp(w);
+		cf4.comp(w1);
+		cf4.comp(cf4);
+		Polynom w2=new Polynom(s4);
+		a.add(cf.initFromString(s1));
+		a.add(cf.initFromString(s2));
+		a.add(cf.initFromString(s3));
+		a.add(cf.initFromString(s4));
+		a.add(cf.initFromString(s5));
+		a.add(cf.initFromString(s6));
+		a.add(cf.initFromString(s7));
+		a.add(cf4);
+			String file = "function_filesgg.txt";
+			Functions_GUI ans2 = new Functions_GUI();
+			try {
+				a.saveToFile(file);
+				ans2.initFromFile(file);
+				                                         
+			}
+			catch(Exception e) {e.printStackTrace();}
+			int  res=200;
+			Range rx = new Range(-10,10);
+			Range ry = new Range(-5,15);
+			a.drawFunctions(1000,600,rx,ry,res);
+			assertEquals(ans2.containsAll(a), true);
+}
 	
 	
 }

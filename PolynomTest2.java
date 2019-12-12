@@ -152,11 +152,7 @@ public class PolynomTest2 {
 		Polynom test =new Polynom("480.0-164.0x-52.0x^2+5.0x^3+x^4");
 		assertEquals(test.area(-5, 1, 0.01),2510.5459999980026);
 	}
-	@Test
-	public void testCopy() {
-		Polynom test =new Polynom("2x+1");
-		assertEquals(test.copy(), "2x+1");
-	}
+	
 	
 
 }

@@ -3,32 +3,50 @@ package myMath;
 import java.util.ArrayList;
 
 public class ComplexFunction implements complex_function{
-	private ArrayList<function> functions= new ArrayList<function>();
-	private ArrayList<Operation> operations=new ArrayList<Operation>();
+	public ArrayList<function> functions= new ArrayList<function>();
+	public ArrayList<Operation> operations=new ArrayList<Operation>();
 	
 	public  ComplexFunction(String s) {
-		err(s,0,0);
 		if(s.length()==0) throw new RuntimeException("ERR the  string sholdn't be empty , got: "+s);
 		if((s.charAt(0)>='0' && s.charAt(0)<='9')||s.charAt(0)=='-' || s.charAt(0)=='+'|| s.charAt(0)=='x') {
 			functions.add(new Polynom(s));
 			return;
 		}
-		while(!((s.charAt(0)>='0' && s.charAt(0)<='9')||s.charAt(0)=='-' || s.charAt(0)=='+'))s= this.op(s,"",0);
+		if(!((s.charAt(0)>='0' && s.charAt(0)<='9')||s.charAt(0)=='-' || s.charAt(0)=='+'||s.charAt(0)==','||s.charAt(0)==')'||s.charAt(0)=='('))s= this.op(s,"",0);
 		while(!s.equals("")) {
 			if((s.charAt(0)>='0' && s.charAt(0)<='9')||s.charAt(0)=='-' || s.charAt(0)=='+')s= this.polynom(s,"",0);
-			else if(s.charAt(0)>='c' && s.charAt(0)<='p'&&s.charAt(0)!='x') s=this.comlex(s,0,0,"");
-			//else throw new RuntimeException("ERR the   string  not legal: "+s);
-			if(s.length()>0) if(s.charAt(0)==',')s=s.substring(1, s.length());
+			else if(s.charAt(0)>='c' && s.charAt(0)<='p'&&s.charAt(0)!='x') s=this.comlex(s,1,0,"");
+			
+			else {
+				System.out.println(s);
+				throw new RuntimeException("ERR the   string  not legal: "+s);
+			}
+			
 		}
+		//System.out.println(functions.size()+"fun");
+	//	for (int i = 0; i < functions.size(); i++) {
+	//		System.out.println(functions.get(i).toString());
+	//	}
+	//	for (int i = 0; i < operations.size(); i++) {
+		//	System.out.println(operations.get(i).toString());
+		//}
+		//System.out.println(operations.size()+"op");
 	}
 	private String comlex(String s,int sum1,int sum2,String r) {
-		for (int j = 0;  j <s.length() && s.charAt(j)!=')' ; j++)  if(s.charAt(j)=='(')sum1++; 
 		int j = 0;
-		for(; j <s.length() && sum2!=sum1; j++) {
-			if(s.charAt(j)==')')sum2++;
+		for (; j < s.length()&&s.charAt(j)!='('; j++) {
 			r+=s.charAt(j);
 		}
+		r+=s.charAt(j);
+		j++;
+		for (;  j <s.length() && sum1!=sum2 ; j++) {
+			r+=s.charAt(j);
+			if(s.charAt(j)==')')sum2++;
+			if(s.charAt(j)=='(')sum1++; 
+		}
+		System.out.println(r+"hhhhh");
 		this.functions.add(new ComplexFunction(r));
+		if(j+1>=s.length()||s.length()==0)return "";
 		return s.substring(j+1, s.length());
 	}
 
@@ -47,6 +65,8 @@ public class ComplexFunction implements complex_function{
 	private String polynom(String s,String r,int j) {
 		for ( ; j < s.length()&&s.charAt(j)!=',' && s.charAt(j)!=')'; j++) 	r+=s.charAt(j);
 		this.functions.add(new Polynom(r));
+		if(j+1>=s.length())return "";
+		if(s.charAt(j+1)==',')j++;
 		return s.substring(j+1, s.length());
 	}
 	private void err(String s,int count1,int count2) {
@@ -121,6 +141,7 @@ public class ComplexFunction implements complex_function{
 
 	@Override
 	public function initFromString(String s) {
+		err(s,0,0);
 		return new ComplexFunction(s);
 	}
 

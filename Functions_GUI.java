@@ -25,6 +25,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.awt.*;
 import java.io.FileReader;
 import java.util.Iterator;
@@ -67,7 +70,7 @@ public class Functions_GUI  implements functions {
 	}
 	@Override
 	public boolean add(function e) {
-		return functions.add(e.copy());
+		return functions.add(e);
 	}
 	public function get(int index) {
 		return functions.get(index);
@@ -184,10 +187,8 @@ public class Functions_GUI  implements functions {
 		return functions.size();
 	}
 	public static void main(String[] args) {
-		
 		ComplexFunction cf = new ComplexFunction();
 		String s1="plus(-1.0x^4+2.4x^2+3.1,+0.1x^5-1.2999999999999998x+5.0)";
-
 		String s2="plus(div(+1.0x +1.0,mul(mul(+1.0x +3.0,+1.0x -2.0),+1.0x -4.0)),2.0)";
 		String s3="div(plus(-1.0x^4 +2.4x^2 +3.1,+0.1x^5 -1.2999999999999998x +5.0),-1.0x^4 +2.4x^2 +3.1)";
 		String s4="-1.0x^4 +2.4x^2 +3.1";
@@ -195,6 +196,15 @@ public class Functions_GUI  implements functions {
 		String s6="min(min(min(min(plus(-1.0x^4 +2.4x^2 +3.1,+0.1x^5 -1.2999999999999998x +5.0),plus(div(+1.0x +1.0,mul(mul(+1.0x +3.0,+1.0x -2.0),+1.0x -4.0)),2.0)),div(plus(-1.0x^4 +2.4x^2 +3.1,+0.1x^5 -1.2999999999999998x +5.0),-1.0x^4 +2.4x^2 +3.1)),-1.0x^4 +2.4x^2 +3.1),+0.1x^5 -1.2999999999999998x +5.0)";
 		String s7="+0.1x^5 -1.2999999999999998x +5.0";
 		Functions_GUI a=new Functions_GUI();
+		Polynom w=new Polynom(s4);
+		Polynom w1=new Polynom("45+34x+x^5");
+		ComplexFunction cf4 = new ComplexFunction("comp", new Polynom("x +1"),w);
+		cf4.comp(cf.initFromString(s7));
+		cf4.comp(cf.initFromString(s2));
+		cf4.comp(w);
+		cf4.comp(w1);
+		cf4.comp(cf4);
+		Polynom w2=new Polynom(s4);
 		a.add(cf.initFromString(s1));
 		a.add(cf.initFromString(s2));
 		a.add(cf.initFromString(s3));
@@ -202,15 +212,19 @@ public class Functions_GUI  implements functions {
 		a.add(cf.initFromString(s5));
 		a.add(cf.initFromString(s6));
 		a.add(cf.initFromString(s7));
-		//a.add(cf.initFromString(""));
-		//a.add(cf.initFromString(s7));
-		for (int i = 0; i < a.size(); i++) {
-			System.out.println(a.get(i).f(4.05)+"ll");
-		}
-		int w=1000, h=600, res=200;
+		a.add(cf4);
+			String file = "function_filesgg.txt";
+			Functions_GUI ans2 = new Functions_GUI();
+			try {
+				a.saveToFile(file);
+				ans2.initFromFile(file);
+				                                         
+			}
+			catch(Exception e) {e.printStackTrace();}
+		int  res=200;
 		Range rx = new Range(-10,10);
 		Range ry = new Range(-5,15);
-
+		
 		a.drawFunctions(1000,600,rx,ry,res);
 	}
 
