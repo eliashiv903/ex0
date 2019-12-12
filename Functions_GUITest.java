@@ -35,7 +35,7 @@ class Functions_GUITest {
 	//	int w=1000, h=600, res=200;
 	//	Range rx = new Range(-10,10);
 	//	Range ry = new Range(-5,15);
-//		data.drawFunctions(w,h,rx,ry,res);
+//	data.drawFunctions(w,h,rx,ry,res);
 		String file = "function_file.txt";
 		String file2 = "function_file2.txt";   
 		try {

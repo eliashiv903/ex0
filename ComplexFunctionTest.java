@@ -114,19 +114,20 @@ public class ComplexFunctionTest {
 	@SuppressWarnings("deprecation")
 	@Test
 	public void testEquals() {
-		Polynom test =new Polynom("2x+3+5x^4");
-		test.substract(new Polynom("3+x+5x^4"));
-		assertEquals(test.toString(),"x");
+		ComplexFunction test1 =new ComplexFunction("pplus(div(1+x,mul(mul(3.0+x,-2.0+x),-4.0+x)),2.0)");	
+		Polynom test2 =new Polynom("2x+3+5x^4");
+		
+		assertEquals(test1.toString(),"x");
 	}
 
 	@SuppressWarnings("deprecation")
 	@Test
 	public void testDivMaxMulMinCompPlus() {
-		function y= new Polynom("x+3");
-		function j= new Polynom("x-2");
-		function b= new Polynom("x-4");
-		function n= new Polynom("2");
-		function m= new Polynom("x+1");
+		function y= new ComplexFunction("x+3");
+		function j= new ComplexFunction("x-2");
+		function b= new ComplexFunction("x-4");
+		function n= new ComplexFunction("2");
+		function m= new ComplexFunction("x+1");
 		ComplexFunction f5=new ComplexFunction(y);
 		f5.mul(j);
 		f5.mul(b);

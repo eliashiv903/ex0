@@ -121,6 +121,10 @@ public class Polynom implements Polynom_able{
 	}
 	@Override
 	public boolean equals(Object p1) {
+		if(this.toString().equals(p1.toString()))	return true;
+		return false;
+	}
+	public boolean equals(Polynom p1) {
 		String a=p1.toString();
 		Polynom p1Regilur=new Polynom(a);
 		if(this.monoms.size()!=p1Regilur.monoms.size())return false;

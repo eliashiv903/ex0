@@ -160,6 +160,9 @@ public class Functions_GUI  implements functions {
 	@Override
 	public void drawFunctions(String json_file) {
 		Gson gson = new Gson();
+
+		//Option 1: from JSON String to Object 
+
 		try 
 		{
 			//Option 2: from JSON file to Object
@@ -174,12 +177,14 @@ public class Functions_GUI  implements functions {
 		} 
 	}
 
+
+
 	@Override
 	public int size() {
 		return functions.size();
 	}
 	public static void main(String[] args) {
-		ComplexFunction test =new ComplexFunction("plus(div(1+x,mul(mul(3.0+x,-2.0+x),-4.0+x))),2.0)");
+		
 		ComplexFunction cf = new ComplexFunction();
 		String s1="plus(-1.0x^4+2.4x^2+3.1,+0.1x^5-1.2999999999999998x+5.0)";
 
@@ -200,7 +205,7 @@ public class Functions_GUI  implements functions {
 		//a.add(cf.initFromString(""));
 		//a.add(cf.initFromString(s7));
 		for (int i = 0; i < a.size(); i++) {
-			System.out.println(a.get(i).f(0));
+			System.out.println(a.get(i).f(4.05)+"ll");
 		}
 		int w=1000, h=600, res=200;
 		Range rx = new Range(-10,10);
