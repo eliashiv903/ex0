@@ -18,3 +18,12 @@ for example, It is possible to draw the polynomial:
 - **Plynom:** https://github.com/eliashiv903/ex0/wiki/polynom
 - **Function_GUI:** https://github.com/eliashiv903/ex0/wiki/Functions-GUI
 - **Complex_Function:** https://github.com/eliashiv903/ex0/wiki/Complex-Function
+
+### Sorces
+polynom - https://de.wikipedia.org/wiki/Polynom
+
+StdDraw- https://introcs.cs.princeton.edu/java/stdlib/javadoc/StdDraw.html
+
+Riemann_integral  - https://en.wikipedia.org/wiki/Riemann_integral 
+
+Iterator -https://docs.oracle.com/javase/7/docs/api/java/util/Iterator.html
