@@ -14,7 +14,7 @@ public class ComplexFunction implements complex_function{
 		}
 		if(!((s.charAt(0)>='0' && s.charAt(0)<='9')||s.charAt(0)=='-' || s.charAt(0)=='+'||s.charAt(0)==','||s.charAt(0)==')'||s.charAt(0)=='('))s= this.op(s,"",0);
 		while(!s.equals("")) {
-			if((s.charAt(0)>='0' && s.charAt(0)<='9')||s.charAt(0)=='-' || s.charAt(0)=='+')s= this.polynom(s,"",0);
+			if((s.charAt(0)>='0' && s.charAt(0)<='9')||s.charAt(0)=='-' || s.charAt(0)=='+'|| s.charAt(0)=='x')s= this.polynom(s,"",0);
 			else if(s.charAt(0)>='c' && s.charAt(0)<='p'&&s.charAt(0)!='x') s=this.comlex(s,1,0,"");
 			else {
 				throw new RuntimeException("ERR the   string  not legal: "+s);
