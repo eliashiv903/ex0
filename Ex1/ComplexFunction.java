@@ -141,8 +141,12 @@ public class ComplexFunction implements complex_function{
 	}
 
 	public boolean equals(Object obj) {
-		if(this.toString().equals(obj.toString()))return true;
-		return false;
+		ComplexFunction a=new ComplexFunction(obj.toString());
+		double x=100;
+		for (int i = 0; i < 120; i++,x+=0.1) 	if(a.f(x)!=this.f(x))return false;
+		x=-100;
+		for (int i = 0; i < 120; i++,x-=0.1) {if(a.f(x)!=this.f(x))return false;	
+		return true;
 	}
 	public String toString() {
 		String a="";
