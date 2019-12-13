@@ -120,10 +120,15 @@ public class Polynom implements Polynom_able{
 		deleteAllZero();
 	}
 	@Override
-	public boolean equals(Object p1) {
-		if(this.toString().equals(p1.toString()))	return true;
-		return false;
+	public boolean equals(Object obj) {
+		ComplexFunction a=new ComplexFunction(obj.toString());
+		double x=100;
+		for (int i = 0; i < 120; i++,x+=0.1) 	if(a.f(x)!=this.f(x))return false;
+		x=-100;
+		for (int i = 0; i < 120; i++,x-=0.1) {if(a.f(x)!=this.f(x))return false;	
+		return true;
 	}
+		
 	public boolean equals(Polynom p1) {
 		String a=p1.toString();
 		Polynom p1Regilur=new Polynom(a);
