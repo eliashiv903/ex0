@@ -123,9 +123,9 @@ public class Polynom implements Polynom_able{
 	public boolean equals(Object obj) {
 		ComplexFunction a=new ComplexFunction(obj.toString());
 		double x=100;
-		for (int i = 0; i < 120; i++,x+=0.1) 	if(a.f(x)!=this.f(x))return false;
+		for (int i = 0; i < 120; i++,x+=0.1) if(a.f(x)-this.f(x)>0.0000001 && a.f(x)-this.f(x)<-0.0000001) 		return false;
 		x=-100;
-		for (int i = 0; i < 120; i++,x-=0.1) {if(a.f(x)!=this.f(x))return false;	
+		for (int i = 0; i < 120; i++,x-=0.1) if(((a.f(x)-this.f(x))>0.0000001) && (a.f(x)-this.f(x))<-0.0000001)return false;	
 		return true;
 	}
 		
